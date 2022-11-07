@@ -1,0 +1,9 @@
+version: '2'
+services:
+  APP:
+    container_name: app
+    build: .
+    ports:
+      - "81:81"
+
+
