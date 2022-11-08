@@ -12,7 +12,7 @@ then
 else
 	MACHINE_IP=Deploy_IP
 
-
+fi
 ssh -o StrictHostKeyChecking=no ec2-user@${MACHINE_IP} << 'EOF'
 	cd /home/ec2-user/BynetFinalProject/
 	docker-compose up --no-build -d
