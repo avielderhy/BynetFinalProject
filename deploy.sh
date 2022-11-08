@@ -2,18 +2,18 @@
 
 HOME_DIR="/home/ec2-user"
 WORKSPACE="/var/lib/jenkins/workspace/BynetFinalProject"
-Test_IP="54.81.199.86"
-Deploy_IP="44.203.4.212"
+TEST_IP="54.81.199.86"
+DEPLOY_IP="44.203.4.212"
 
 MACHINE=$1
 if [ "$MACHINE" == "test" ];
 then
-	MACHINE_IP=Test_IP
+	MACHINE_IP=$TEST_IP
 else
-	MACHINE_IP=Deploy_IP
-
+	MACHINE_IP=$DEPLOY_IP
 fi
-ssh -o StrictHostKeyChecking=no ec2-user@${MACHINE_IP} << 'EOF'
+
+ssh -tt -o StrictHostKeyChecking=no ec2-user@${MACHINE_IP} << 'EOF'
 	cd /home/ec2-user/BynetFinalProject/
 	docker-compose up --no-build -d
 	sleep 5
