@@ -4,6 +4,6 @@ services:
     image: avielderhy/finalproject
     build: .
     ports:
-      - "81:81"
+      - "5000:5000"
 
 
