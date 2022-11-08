@@ -1,7 +1,7 @@
 version: '2'
 services:
   APP:
-    container_name: app
+    image: avielderhy/finalproject
     build: .
     ports:
       - "81:81"
