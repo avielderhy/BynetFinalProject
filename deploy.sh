@@ -2,11 +2,11 @@
 
 HOME_DIR="/home/ec2-user"
 WORKSPACE="/var/lib/jenkins/workspace/BynetFinalProject"
-Test_IP = "54.81.199.86"
-Deploy_IP = "44.203.4.212"
+Test_IP="54.81.199.86"
+Deploy_IP="44.203.4.212"
 
 MACHINE=$1
-if [ "$MACHINE == "test" ];
+if [ "$MACHINE" == "test" ];
 then
 	MACHINE_IP=Test_IP
 else
