@@ -1,0 +1,54 @@
+pipeline {
+    environment {
+        registry = "avielderhy/finalproject"
+        registryCredential = 'avielderhy'
+        dockerImage = ''
+    }
+    agent any 
+    stages {
+        stage('Build') { 
+            steps {
+                echo "Building..."
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_keys', url: 'https://github.com/avielderhy/BynetFinalProject']]])
+                script {
+                    sh '''sudo usermod -a -G docker jenkins'''
+                    sh '''sudo systemctl start docker'''
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) { dockerImage.push() }
+                }
+            }
+        }
+	stage('Test') { 
+            steps {
+                echo "Testing..."
+                sshagent(['jenkins_keys']) {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no ec2-user@54.81.199.86;
+                    ssh ec2-user@54.81.199.86 "docker pull avielderhy/finalproject:$BUILD_NUMBER"
+                    ssh ec2-user@54.81.199.86 "cd /home/ec2-user/BynetFinalProject/; docker-compose up -d"
+                    '''
+                    sh 'sleep 10'
+                    sh '''
+                    ssh ec2-user@54.81.199.86 "cd /home/ec2-user/BynetFinalProject/; ./test.sh"
+                    '''
+                }
+            }
+        }
+	stage('Deploy') { 
+            steps {
+                echo "Deploying..."
+                sshagent(['jenkins_keys']) {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no ec2-user@54.81.199.86;
+                    ssh ec2-user@44.203.4.212 "docker pull avielderhy/finalproject:$BUILD_NUMBER"
+                    ssh ec2-user@44.203.4.212 "cd /home/ec2-user/BynetFinalProject/; docker-compose up -d"
+                    '''
+                    sh 'sleep 10'
+                    sh '''
+                    ssh ec2-user@44.203.4.212 "cd /home/ec2-user/BynetFinalProject/; ./deploy.sh"
+                    '''
+                }
+            }
+        }
+    }
+}
