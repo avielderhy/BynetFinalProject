@@ -15,6 +15,7 @@ then
 	docker-compose up --no-build -d
 	sleep 5
 	./test.sh
+	fi
 fi
 
 if [ "$MACHINE" == "prod" ];
@@ -23,6 +24,7 @@ then
 	then
 	cd /home/ec2-user/BynetFinalProject/
 	docker-compose up --no-build -d
+	fi
 fi
 
 echo "Deployed to $MACHINE machine successfully"
