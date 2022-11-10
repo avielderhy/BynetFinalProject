@@ -9,7 +9,7 @@ MY_IP="$(dig +short myip.opendns.com @resolver1.opendns.com)"
 MACHINE=$1
 
 if [ "$#" -ne 1 ]; then
-    echo "You entered more than 1 argument"
+    echo "You entered more/less than 1 argument"
 	exit 1
 fi
 
