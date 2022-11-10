@@ -29,6 +29,8 @@ then
 	if [ $MY_IP == $DEPLOY_IP ];
 	then
 	cd /home/ec2-user/BynetFinalProject/
+	docker pull avielderhy/finalproject:latest
+	sleep 1
 	docker-compose up --no-build -d
 	fi
 fi
