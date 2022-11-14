@@ -18,7 +18,7 @@ then
 	if [ $MY_IP == $TEST_IP ];
 	then
 	cd /home/ec2-user/BynetFinalProject/
-	docker-compose up --no-build -d
+	sudo docker-compose up --no-build -d
 	sleep 5
 	./test.sh
 	fi
@@ -29,7 +29,7 @@ then
 	if [ $MY_IP == $DEPLOY_IP ];
 	then
 	cd /home/ec2-user/BynetFinalProject/
-	docker pull avielderhy/finalproject:latest
+	sudo docker pull avielderhy/finalproject:latest
 	sleep 1
 	docker-compose up --no-build -d
 	fi
