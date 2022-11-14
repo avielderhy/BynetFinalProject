@@ -20,7 +20,7 @@ pipeline {
 	stage('Test') { 
             steps {
                 echo "Testing..."
-                sshagent(['jenkins_keys']) {
+                sshagent(['ec2_test']) {
                     sh 'ssh ec2-user@54.83.91.121 "cd /home/ec2-user/BynetFinalProject/; ./deploy.sh test"'
                 }
             }
