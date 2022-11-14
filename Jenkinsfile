@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo "Testing..."
                 sshagent(['ec2_test']) {
-                    sh 'ssh ec2-user@54.83.91.121 "cd /home/ec2-user/BynetFinalProject/; ./deploy.sh test"'
+                    sh 'ssh -o StrictHostKeyChecking=no ec2-user@54.83.91.121 "cd /home/ec2-user/BynetFinalProject/; ./deploy.sh test"'
                 }
             }
         }
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 echo "Deploying..."
                 sshagent(['prod_ec2']) {
-                    sh 'ssh ec2-user@18.208.110.157 "cd /home/ec2-user/BynetFinalProject/; ./deploy.sh prod"'
+                    sh 'ssh -o StrictHostKeyChecking=no ec2-user@18.208.110.157 "cd /home/ec2-user/BynetFinalProject/; ./deploy.sh prod"'
                 }
             }
         }
