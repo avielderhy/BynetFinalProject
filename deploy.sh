@@ -2,8 +2,8 @@
 
 HOME_DIR="/home/ec2-user"
 WORKSPACE="/var/lib/jenkins/workspace/BynetFinalProject"
-TEST_IP="54.81.199.86"
-DEPLOY_IP="44.203.4.212"
+TEST_IP="54.83.91.121"
+DEPLOY_IP="18.208.110.157"
 MY_IP="$(dig +short myip.opendns.com @resolver1.opendns.com)"
 
 MACHINE=$1
