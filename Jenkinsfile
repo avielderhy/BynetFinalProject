@@ -11,7 +11,6 @@ pipeline {
                 echo "Building..."
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins_keys', url: 'https://github.com/avielderhy/BynetFinalProject']]])
                 script {
-                    sh 'sudo systemctl start docker'
                     dockerImage = docker.build registry + "latest"
                     docker.withRegistry('https://registry.hub.docker.com', registryCredential) { dockerImage.push() }
                 }
